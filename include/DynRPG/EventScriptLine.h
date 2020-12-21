@@ -1,6 +1,10 @@
+#ifndef EVENTSCRIPTLINE_H
+#define EVENTSCRIPTLINE_H
+#include "DArray.h"
+#include "DString.h"
 namespace RPG {
 	/*! \brief %Event command type
-		
+
 		Each event command can have a number of parameters. Unfortunately,
 		documenting all of them (nearly 150) is beyond my time resources
 		at the moment. If you need to know how the parameters of a certain
@@ -137,9 +141,9 @@ namespace RPG {
 		EVCMD_FORK_IN_BATTLE_END = 23311, //!< <tt>: End Case</tt> line of a "Conditional Branch" in battle events
 		EVCMD_CALL_COMMON_EVENT = 1005 //!< "Call Common Event" in battle events
 	};
-	
+
 	/*! \brief Represents an event script line
-		
+
 		%Event script lines can have one string parameter and unlimited integer
 		parameters.
 	*/
@@ -150,7 +154,7 @@ namespace RPG {
 			int treeDepth; //!< The level of indention (\c 0 for none)
 			DStringPtr stringParameter; //!< The string parameter
 			DArray<int> parameters; //!< The integer parameters
-			
+
 			/*! \brief Returns an integer parameter (\c 0 if the parameter doesn't exist)
 				\param index Parameter index (zero-based)
 				\return The parameter's value or \c 0 if the parameter doesn't exist
@@ -158,3 +162,4 @@ namespace RPG {
 			int parameter(int index);
 	};
 }
+#endif /* EVENTSCRIPTLINE_H */

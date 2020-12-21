@@ -1,9 +1,17 @@
-namespace RPG {
+#ifndef MAPTREEPROPERTIES_H
+#define MAPTREEPROPERTIES_H
+#include "DString.h"
+#include "Catalog.h"
+namespace RPG
+{
+	class MapEncounter;
+	class Music;
 	/*! \brief Possible values for RPG::MapTreeProperties::treeEntryType
 
 		The type of entry in the map tree for a particular map.
 	*/
-	enum MapTreeType {
+	enum MapTreeType
+	{
 		MAP_TREE_FOLDER, //!< The root directory (name of your game)
 		MAP_TREE_MAP,
 		MAP_TREE_AREA
@@ -16,7 +24,8 @@ namespace RPG {
 
 		The type of music defined on a map
 	*/
-	enum MapMusicType {
+	enum MapMusicType
+	{
 		MAP_MUSIC_SAME_AS_PARENT,
 		MAP_MUSIC_ENTRUST_TO_EVENT,
 		MAP_MUSIC_SPECIFY
@@ -29,7 +38,8 @@ namespace RPG {
 
 		The type of battle background defined on a map
 	*/
-	enum MapBgType {
+	enum MapBgType
+	{
 		MAP_BG_SAME_AS_PARENT,
 		MAP_BG_USE_TERRAIN_SETTINGS,
 		MAP_BG_SPECIFY
@@ -42,7 +52,8 @@ namespace RPG {
 
 		The properties for Teleport/Escape/Save as defined on a map
 	*/
-	enum MapAllowType {
+	enum MapAllowType
+	{
 		MAP_TES_SAME_AS_PARENT,
 		MAP_TES_ALLOW,
 		MAP_TES_FORBID
@@ -60,32 +71,35 @@ namespace RPG {
 		\sa RPG::MapAllowType
 
 	*/
-	class MapTreeProperties {
-		public:
-			void **vTable;
-			int id; //!< ID of the map in the map tree. This INCLUDES areas. The id = 0 if it's the top level (Name of your game)
-			DStringPtr name; //!< The name of the map in the map tree
-				int _unknown_0C;
-			int parentMapId; //!< ID of the parent map in the map tree
-			int treeDepth; //!< The number value representing how deep the map is in the tree. A map within a map within a map within the main folder would be considered "2"
-			MapTreeType_T treeEntryType; //!< The type of entry in the map tree.
-				int _unknown_1C; // 86 on AREAs
-				int _unknown_20; // -75 on AREAs
-			bool isNotArea; //!< true if the map is not an area
-			MapMusicType_T bgmType; //!< The type of music defined on the map
-			Music *bgmSpecify; //!< The music pointer for the BGM file (See RPG::Music)
-			MapBgType_T battleBgType; //!< The type of battle background defined on the map
-			DStringPtr battleBgFilename; //!< The filename of the battle background
-			MapAllowType_T teleportType; //!< Is teleporting using a skill allowed?
-			MapAllowType_T escapeType; //!< Is escaping using a skill allowed?
-			MapAllowType_T saveType; //!< Is saving allowed?
-			CatalogPtr<MapEncounter *> encounterList; //!< The list of enemy encounters on the map
-			int encounterRate; //!< The encounter rate on the map
-			int areaStartX; //!< If the map is an area, the X value of the top-left.
-			int areaStartY; //!< If the map is an area, the Y value of the top-left.
-			int areaEndX; //!< If the map is an area, the X value of the bottom-right PLUS 1. Internally, 2k3 includes the top-left of a tile through the bottom-right of a tile for the area's rectangle, while the editor just considers the top-left. 
-			int areaEndY; //!< If the map is an area, the Y value of the bottom-right PLUS 1. Internally, 2k3 includes the top-left of a tile through the bottom-right of a tile for the area's rectangle, while the editor just considers the top-left. 
-				int _unknown_50;
+	class MapTreeProperties
+	{
+	public:
+		void **vTable;
+		int id;			 //!< ID of the map in the map tree. This INCLUDES areas. The id = 0 if it's the top level (Name of your game)
+		DStringPtr name; //!< The name of the map in the map tree
+		int _unknown_0C;
+		int parentMapId;						  //!< ID of the parent map in the map tree
+		int treeDepth;							  //!< The number value representing how deep the map is in the tree. A map within a map within a map within the main folder would be considered "2"
+		MapTreeType_T treeEntryType;			  //!< The type of entry in the map tree.
+		int _unknown_1C;						  // 86 on AREAs
+		int _unknown_20;						  // -75 on AREAs
+		bool isNotArea;							  //!< true if the map is not an area
+		MapMusicType_T bgmType;					  //!< The type of music defined on the map
+		Music *bgmSpecify;						  //!< The music pointer for the BGM file (See RPG::Music)
+		MapBgType_T battleBgType;				  //!< The type of battle background defined on the map
+		DStringPtr battleBgFilename;			  //!< The filename of the battle background
+		MapAllowType_T teleportType;			  //!< Is teleporting using a skill allowed?
+		MapAllowType_T escapeType;				  //!< Is escaping using a skill allowed?
+		MapAllowType_T saveType;				  //!< Is saving allowed?
+		CatalogPtr<MapEncounter *> encounterList; //!< The list of enemy encounters on the map
+		int encounterRate;						  //!< The encounter rate on the map
+		int areaStartX;							  //!< If the map is an area, the X value of the top-left.
+		int areaStartY;							  //!< If the map is an area, the Y value of the top-left.
+		int areaEndX;							  //!< If the map is an area, the X value of the bottom-right PLUS 1. Internally, 2k3 includes the top-left of a tile through the bottom-right of a tile for the area's rectangle, while the editor just considers the top-left.
+		int areaEndY;							  //!< If the map is an area, the Y value of the bottom-right PLUS 1. Internally, 2k3 includes the top-left of a tile through the bottom-right of a tile for the area's rectangle, while the editor just considers the top-left.
+		int _unknown_50;
 	};
 
-}
+} // namespace RPG
+
+#endif

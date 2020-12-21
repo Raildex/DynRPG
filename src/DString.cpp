@@ -1,5 +1,7 @@
 #define DYNRPG_STATIC
-#include "DynRPG.h"
+#include "DString.h"
+#include <cstring>
+#include "DynASM.h"
 
 namespace RPG {
 	DString::operator std::string () const {

@@ -1,4 +1,8 @@
+#ifndef SCENESHOP_H
+#define SCENESHOP_H
+#include "DList.h"
 namespace RPG {
+	class Window;
 	//! Not implemented yet
 	typedef void ShopScript;
 	/*! \brief Possible values for RPG::SceneShop::screen
@@ -73,9 +77,10 @@ namespace RPG {
 			int menuOptionsStringLength; //!< The string length of the message window. Must be changed before the screen draws.
 
 	};
-	
+
 	/*! \ingroup game_objects
 		\brief Access to the shop scene
 	*/
-	static RPG::SceneShop *&shop = (**reinterpret_cast<RPG::SceneShop ***>(0x4CDE4C));
+	extern RPG::SceneShop *&shop;
 }
+#endif /* SCENESHOP_H */

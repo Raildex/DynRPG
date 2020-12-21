@@ -1,3 +1,5 @@
+#ifndef TELEPORTMANAGEMENT_H
+#define TELEPORTMANAGEMENT_H
 namespace RPG {
 	/*! \brief Same as the "Teleport Target Management" event command.
 		\sa RPG::teleportManagement
@@ -22,6 +24,7 @@ namespace RPG {
 	/*! \ingroup game_objects
 		\brief Teleport Management. It's the same as the "Teleport Target Management" event command.
 	*/
-	static RPG::TeleportManagement *&teleportManagement = (**reinterpret_cast<RPG::TeleportManagement ***>(0x4CDB50));
-	
+	extern RPG::TeleportManagement *&teleportManagement;
+
 }
+#endif /* TELEPORTMANAGEMENT_H */

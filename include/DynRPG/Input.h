@@ -1,3 +1,5 @@
+#ifndef INPUT_H
+#define INPUT_H
 namespace RPG {
 	/*! \brief %RPG Maker key names
 		\note The \c Shift key is handled differently by the %RPG Maker, thus
@@ -12,7 +14,7 @@ namespace RPG {
 		KEY_LEFT, //!< Keys which are used for moving left
 		KEY_RIGHT, //!< Keys which are used for moving right
 		KEY_UP, //!< Keys which are used for moving up
-		KEY_DECISION, //!< Keys which are used to confirm an action 
+		KEY_DECISION, //!< Keys which are used to confirm an action
 		KEY_CANCEL, //!< Keys which are used to cancel an action or open the menu
 		KEY_0,
 		KEY_1,
@@ -30,7 +32,7 @@ namespace RPG {
 		KEY_DIVIDE,
 		KEY_DECIMAL
 	};
-	
+
 	/*! \brief Detectable keys to determine whether one is pressed, tapped, or held
 		\sa RPG::input::isPressed
 		\sa RPG::input::isHeld
@@ -47,10 +49,10 @@ namespace RPG {
 		KEYD_MOUSE_LBUT = 64,
 		KEYD_MOUSE_RBUT = 128
 	};
-	
+
 	//! One-byte version of RPG::KeyDown
 	typedef unsigned char KeyDown_T;
-	
+
 	/*! \brief Special keys to determine whether one is pressed, tapped, or held
 		\sa RPG::input::isShiftCtrlPressed
 		\sa RPG::input::isShiftCtrlHeld
@@ -61,10 +63,10 @@ namespace RPG {
 		KEYH_SHIFT,
 		KEYH_CTRL
 	};
-	
+
 	//! One-byte version of RPG::KeyDownAlt
 	typedef unsigned char KeyDownAlt_T;
-	
+
 	/*! \brief Used for key input
 		\sa RPG::input
 	*/
@@ -78,20 +80,20 @@ namespace RPG {
 				char _unknown_0B;
 			/*! \brief Array of key codes assigned to the different RPG::Key
 				values (part 1)
-				
+
 				This array contains the key assignments for those key functions
 				which exist both in %RPG Maker 2000 and %RPG Maker 2003. Use
 				the \ref key method for easy access.
-				
+
 				Indexes:
-		
+
 					  0-7: Down
 					 8-15: Left
 					16-23: Right
 					24-31: Up
 					32-39: Decision
 					40-47: Cancel
-				
+
 				\sa keys2k3
 				\sa RPG::Key
 				\sa key
@@ -100,15 +102,15 @@ namespace RPG {
 				int _unknown_CC[32];
 			/*! \brief Array of key codes assigned to the different RPG::Key
 				values (part 2)
-				
+
 				This array contains the key assignments for those key functions
 				which exist only in %RPG Maker 2003. Use the \ref key method
 				for easy access. Specifically these are the key assignments for
-				numpad keys or otherwise that are detected via the 
+				numpad keys or otherwise that are detected via the
 				"Key Input Processing" event command
-				
+
 				Indexes:
-		
+
 					    0-7: 0 (Detected via Key Input Processing normally)
 					   8-15: 1 "
 					  16-23: 2 "
@@ -124,7 +126,7 @@ namespace RPG {
 					 96-103: * "
 					104-111: / "
 					112-119: . "
-				
+
 				\sa keys
 				\sa RPG::Key
 				\sa key
@@ -155,14 +157,14 @@ namespace RPG {
 				char _unknown_367;
 			int directionNumpad; //!< down (2), left (4), right (6), up (8)
 			bool joyRepsonseFlag; //!< If 1, response for button status of joy device took too long & don't process JoyInput
-			
+
 			/*! \brief Provides easy access to the key assignments
-				
+
 				This function returns a pointer to the "block" of 8 key codes
 				in the \c keys or \c keys2k3 array which corresponds to the
 				given RPG::Key value. The result should be used with the
 				<tt>[]</tt> syntax with an index from \c 0 to \c 7.
-				
+
 				Example:
 				\code
 RPG::input->key(RPG::KEY_DECISION)[3] = VK_TAB;
@@ -170,7 +172,7 @@ RPG::input->key(RPG::KEY_DECISION)[3] = VK_TAB;
 				This example would assign the \c TAB key as a new decision key
 				(the default decision keys are \c Enter, \c Space and \c Z,
 				indexes \c 3 to \c 7 are not assigned by default).
-				
+
 				The values used for key assignments are
 				<a href="http://msdn.microsoft.com/en-us/library/windows/desktop/dd375731(v=vs.85).aspx">virtual key codes</a>,
 				zero meaning "not assigned".
@@ -180,9 +182,9 @@ RPG::input->key(RPG::KEY_DECISION)[3] = VK_TAB;
 				\sa RPG::Key
 			*/
 			int *key(RPG::Key keyId);
-			
+
 			/*! \brief Checks whether a RPG::Key is pressed
-				
+
 				This function checks if one of the physical keys asiigned to a
 				RPG::Key is currently held down. This function does not use the
 				%RPG Maker's internal key cache.
@@ -190,17 +192,18 @@ RPG::input->key(RPG::KEY_DECISION)[3] = VK_TAB;
 				\return \c true if the key is pressed, \c false otherwise
 			*/
 			bool pressed(RPG::Key keyId);
-			
+
 			/*! \brief Updates the %RPG Maker's internal key cache
-				
+
 				The %RPG Maker uses an internal key cache which is normally
 				updated every frame. This function updates the key cache.
 			*/
 			void update();
 	};
-	
+
 	/*! \ingroup game_objects
 		\brief Object used for key assignments and key input checking.
 	*/
-	static RPG::Input *&input = (**reinterpret_cast<RPG::Input ***>(0x4CDAEC));
+	extern RPG::Input *&input;
 }
+#endif /* INPUT_H */

@@ -1,4 +1,11 @@
+#ifndef EVENTPAGE_H
+#define EVENTPAGE_H
+#include "DString.h"
+#include "DynASM.h"
 namespace RPG {
+	class EventScriptList;
+	class MoveRoute;
+	class EventPrecondition;
     //! Possible values for RPG::EventPage::charsetDir and RPG::Character::facing
 	enum Facing { // Moved from Character.h
 		FACE_UP, //!< %Character looks up
@@ -58,3 +65,4 @@ namespace RPG {
 			// AAAAH WHY AM I YELLING
 	};
 }
+#endif /* EVENTPAGE_H */

@@ -1,7 +1,12 @@
+#ifndef EVENTDATA_H
+#define EVENTDATA_H
+#include "DString.h"
+#include "Catalog.h"
 namespace RPG {
+	class EventPage;
 
 	/*! \brief Class used for storing event names, ids, the event pages, and script data
-	
+
 		\sa RPG::Map
 		\sa RPG::Event
 		\sa RPG::EventPage
@@ -16,3 +21,4 @@ namespace RPG {
 			CatalogPtr<EventPage *> pages; //!< The array of pages on the event, as well as their properties and event commands (zero-based)
 	};
 }
+#endif /* EVENTDATA_H */

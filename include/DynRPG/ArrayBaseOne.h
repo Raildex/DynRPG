@@ -1,6 +1,8 @@
+#ifndef ARRAYBASEONE_H
+#define ARRAYBASEONE_H
 namespace RPG {
 	/*! \brief Helper class for arrays with base one
-	
+
 		This class template is used for arrays in classes with should have one
 		as base (unlike normal arrays with base zero).
 	*/
@@ -14,8 +16,9 @@ namespace RPG {
 			inline T &operator [](int index) {
 				return array[index - 1];
 			}
-			
+
 		private:
 			T array[size]; //!< Original array
 	};
 }
+#endif /* ARRAYBASEONE_H */

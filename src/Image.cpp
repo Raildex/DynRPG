@@ -1,5 +1,7 @@
 #define DYNRPG_STATIC
-#include "DynRPG.h"
+#include "Image.h"
+#include "DynASM.h"
+#include <cstring>
 
 namespace RPG {
 	void Image::applyPalette() {

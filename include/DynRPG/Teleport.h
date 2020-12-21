@@ -1,3 +1,5 @@
+#ifndef TELEPORT_H
+#define TELEPORT_H
 namespace RPG {
 	//! Not implemented yet
 	typedef void AuroraBoard;
@@ -13,7 +15,7 @@ namespace RPG {
 		TP_DIR_DOWN,
 		TP_DIR_LEFT
 	};
-	
+
 	/*! \brief Class used for teleporting.
 		\sa RPG::teleport
 		\sa RPG::teleportManagement
@@ -33,22 +35,15 @@ namespace RPG {
 			int mapY; //!< Map Y-coordinate to teleport to
 				int _unknown_1C;
 			TeleportDirection facingDirection; //!< The direction to face after teleporting
-			//void teleportHero(int mapId, int x, int y, TeleportDirection dir); 
+			//void teleportHero(int mapId, int x, int y, TeleportDirection dir);
 	};
 
 	/*! \ingroup game_objects
 		\brief Teleport parameters.
 	*/
-	static RPG::Teleport *&teleport = (**reinterpret_cast<RPG::Teleport ***>(0x4CDC1C));
-	
+	extern RPG::Teleport *&teleport;
+
 	//! Simple function for teleporting
-	void teleportHero(int mapId = 1, int x = 0, int y = 0, TeleportDirection dir = RPG::TP_DIR_RETAIN_FACING) {
-		teleport->mapId = mapId;
-        teleport->mapX = x;
-        teleport->mapY = y;
-        teleport->facingDirection = dir;
-        teleport->teleportTrigger = true;
-	}
-
-
+	void teleportHero(int mapId = 1, int x = 0, int y = 0, TeleportDirection dir = RPG::TP_DIR_RETAIN_FACING);
 }
+#endif /* TELEPORT_H */

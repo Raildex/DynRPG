@@ -1,22 +1,30 @@
-namespace RPG {
+#ifndef ANIMATIONCURRENT_H
+#define ANIMATIONCURRENT_H
+#include "DString.h"
+namespace RPG
+{
+	class Animation;
+	class Image;
 	/*! \brief Used to access the data for the battle animation currently playing
 
 		\sa RPG::AnimationInBattle
 		\sa RPG::Animation
 	*/
 
-	class AnimationCurrent {
-		public:
-			void **vTable;
-			Animation *anim; //!< Animation structure of the current battle animation. 0 if BattleCharSets
-			DStringPtr filename; //!< Filename of the animation that has been stored in memory
-			Image *image; //!< The actual image data of the battle animation stored in memory. Only use with monsters
-			Image *imageLarge; //!< The image data if it's a large battle animation, which has been stored in memory. Only use with monsters
-				DStringPtr _unknown_14;
-				DStringPtr _unknown_18;
-				DStringPtr _unknown_1C;
-			bool isMirrored; //!< Is the animation currently mirrored?
-
+	class AnimationCurrent
+	{
+	public:
+		void **vTable;
+		Animation *anim;	 //!< Animation structure of the current battle animation. 0 if BattleCharSets
+		DStringPtr filename; //!< Filename of the animation that has been stored in memory
+		Image *image;		 //!< The actual image data of the battle animation stored in memory. Only use with monsters
+		Image *imageLarge;	 //!< The image data if it's a large battle animation, which has been stored in memory. Only use with monsters
+		DStringPtr _unknown_14;
+		DStringPtr _unknown_18;
+		DStringPtr _unknown_1C;
+		bool isMirrored; //!< Is the animation currently mirrored?
 	};
 
-}
+} // namespace RPG
+#endif
+

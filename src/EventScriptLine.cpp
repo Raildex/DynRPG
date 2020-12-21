@@ -1,5 +1,5 @@
 #define DYNRPG_STATIC
-#include "DynRPG.h"
+#include "EventScriptLine.h"
 
 namespace RPG {
 	int EventScriptLine::parameter(int index) {

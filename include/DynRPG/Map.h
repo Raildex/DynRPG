@@ -1,5 +1,12 @@
+#ifndef MAP_H
+#define MAP_H
+#include "DString.h"
+#include "Catalog.h"
 namespace RPG {
-	//! Not implemented yet
+	class Event;
+	class MapProperties;
+	class EventScriptLine;
+		//! Not implemented yet
 	typedef void Chipset;
 
 	/*! \brief Used for accessing and manipulating the current map environment
@@ -62,7 +69,7 @@ namespace RPG {
 				DynRPG which is start condition of an event, for example.
 			*/
 			void updateEvents();
-			
+
 			/*! \brief Gets the tile ID for the lower layer tile at the specified coordinate
 				\param map The map being checked. For now, just RPG::map is supported as it's not (yet?) possible to check maps the player isn't on
 				\param x The Y coordinate of the tile
@@ -70,7 +77,7 @@ namespace RPG {
 				\sa RPG::Tileset::lowerTilePassability
 			*/
 			int getLowerLayerTileId(int x, int y);
-			
+
 			/*! \brief Gets the tile ID for the upper layer tile at the specified coordinate
 				\param map The map being checked. For now, just RPG::map is supported as it's not (yet?) possible to check maps the player isn't on
 				\param x The Y coordinate of the tile
@@ -78,21 +85,21 @@ namespace RPG {
 				\sa RPG::Tileset::upperTilePassability
 			*/
 			int getUpperLayerTileId(int x, int y);
-			
+
 			/*! \brief Gets the terrain ID for the tile ID specified
 				\param tileId The tile's id
 				\sa RPG::Tileset::lowerTileTerrainId
 			*/
 			int getTerrainId(int tileId);
-			
-			/*! \brief Gets the event ID at the position specified, or 
+
+			/*! \brief Gets the event ID at the position specified, or
 				\param x The Y coordinate of the event
 				\param y The Y coordinate of the event
 				\return The event ID, or 0 if no event was found
 			*/
 			int getEventAt(int x, int y);
-			
-			
+
+
 
 			/*! \brief Returns the map properties information for the map that is
 				currently loaded
@@ -104,65 +111,14 @@ namespace RPG {
 
 	};
 
-	RPG::MapProperties *&RPG::Map::properties  = (**reinterpret_cast<RPG::MapProperties ***>(0x4CDD14));
-
-
 	/*! \ingroup game_objects
 		\brief The current map environment (camera, events, etc.)
 
 		For accessing events, use <tt>RPG::map->events[<i>event ID</i>]</tt>.
 		\sa RPG::mapTree
 	*/
-	static RPG::Map *&map = (**reinterpret_cast<RPG::Map ***>(0x4CDD74));
-	
-	
-	int RPG::Map::getLowerLayerTileId(int x, int y) {
-		int out;
-		asm volatile("call *%%esi"
-			: "=a" (out), "=c" (RPG::_ecx), "=d" (RPG::_edx)
-			: "S" (0x4A80CC), "a" (this), "c" (y), "d" (x)
-			: "cc", "memory");
-		return out;
-	}
+	extern RPG::Map *&map;
 
-	int RPG::Map::getUpperLayerTileId(int x, int y) {
-		int out;
-		asm volatile("call *%%esi"
-			: "=a" (out), "=c" (RPG::_ecx), "=d" (RPG::_edx)
-			: "S" (0x4A80F4), "a" (this), "c" (y), "d" (x)
-			: "cc", "memory");
-		return out;
-	}
-	
-	int RPG::Map::getTerrainId(int tileId) {
-		int out;
-		asm volatile("movl 20(%%eax), %%eax; call *%%esi"
-			: "=a" (out), "=d" (RPG::_edx)
-			: "S" (0x47D038), "a" (this), "d" (tileId)
-			: "ecx", "cc", "memory");
-		return out;
-	}
-	
-	int RPG::Map::getEventAt(int x, int y) {
-    // Since the map->events array goes by event ID, create a counter that increments
-    // when an event is not found at a specific array location, thus ensuring
-    // all events get checked
-    // example: events 1 and 10 exist on the map, while 2-9 were deleted at some point
-		int counter = RPG::map->events.count();
-		for (int i = 1; i <= counter;  i++) {
-			// Ensures the event exists
-			if (RPG::map->events[i]) {
-				// Checks the x & y coordinates
-				if (RPG::map->events[i]->x == x && RPG::map->events[i]->y == y) {
-					// Return the event's ID
-					return i;
-				}
-			} else {
-				counter++;
-			}
-		}
-		return 0;
-	}
 
 	/*! \brief Easily returns an event line.
 
@@ -174,7 +130,6 @@ namespace RPG {
 
 		\sa RPG::MapEventPage
 	*/
-	RPG::EventScriptLine *getEventLine(int eventId, int pageId, int lineId) {
-		return map->events[eventId]->data->pages[pageId]->scriptLines->list->items[lineId];
-	}
+	RPG::EventScriptLine *getEventLine(int eventId, int pageId, int lineId);
 }
+#endif /* MAP_H */

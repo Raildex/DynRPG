@@ -1,10 +1,19 @@
+#ifndef DBMONSTERGROUP_H
+#define DBMONSTERGROUP_H
+#include "Catalog.h"
+#include "DArray.h"
+#include "DString.h"
 namespace RPG {
-	
-	enum MonsterAlignment {
+	class BattleEventPage;
+	class MonsterGroupPosition;
+	class EventScriptLine;
+
+	enum MonsterAlignment
+	{
 		MA_MANUAL,
 		MA_AUTO,
 	};
-	
+
 	/*! \brief Used for the default data of monster groups which are defined in the
 		database
 
@@ -38,19 +47,18 @@ namespace RPG {
 int monCrit = RPG::dbMonsterGroups[1]->critPercentage;
 		\endcode
 	*/
-	static RPG::NamedCatalogPtr<RPG::DBMonsterGroup *> &dbMonsterGroups = (**reinterpret_cast<RPG::NamedCatalogPtr<RPG::DBMonsterGroup *> **>(0x4CDDC0));
-	
+	extern RPG::NamedCatalogPtr<RPG::DBMonsterGroup *> &dbMonsterGroups;
+
 	/*! \brief Easily returns a battle event line.
 
 		Allows you to write <tt>RPG::getBattleEventLine(23,1,1)->command</tt> instead of <tt>RPG::dbMonsterGroups[23]->battleEventPages[1]->scriptLines->list->items[1]->command</tt> which gets the 2nd line on the 2nd page of monster group 23.
-		
+
 		\param monsterGroup The monster group ID (one-based)
 		\param battleEventPage The monster group's battle event page ID (zero-based)
 		\param lineId The line ID (zero-based)
 
 		\sa RPG::BattleEventPage
 	*/
-	RPG::EventScriptLine *getBattleEventLine(int monsterGroup, int battleEventPage, int lineId) {
-		return dbMonsterGroups[monsterGroup]->battleEventPages[battleEventPage]->scriptLines->list->items[lineId];
-	}
+	RPG::EventScriptLine *getBattleEventLine(int monsterGroup, int battleEventPage, int lineId);
 }
+#endif /* DBMONSTERGROUP_H */

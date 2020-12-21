@@ -1,17 +1,20 @@
+#ifndef VOCABULARY_H
+#define VOCABULARY_H
+#include "DString.h"
 namespace RPG {
     /*! \brief Accesses the array of Strings in the database.
-	
+
 		\return The RPG::DStringPtr to a particular string.
-		
+
 		Example:
 		\code
 std::string victoryMessage = RPG::vocabulary[3]
 		\endcode
-	
+
 		Indexes are:
-		
+
 		String Page 1
-		
+
 			 0: Message at the Beginning of Each Battle
 			 1: Initiative Message
 			 2: Escape Failure Message
@@ -21,9 +24,9 @@ std::string victoryMessage = RPG::vocabulary[3]
 			 6: Money Acquisition Message (Field 1)
 			 7: Money Acquisition Message (Field 3)
 			 8: Item Discovery Message
-		
+
 		The following are not in the Strings tab... (but accessible via Resource Hacker)
-		
+
 			 9: attacks
 			10: A critical hit! (target = monster)
 			11: A critical hit! (target = hero)
@@ -49,9 +52,9 @@ std::string victoryMessage = RPG::vocabulary[3]
 			31: is taken!
 			32: Defense increases!
 			33: Defense decreases!
-		
+
 		Strings Page 2
-		
+
 			34: Level Up (Field 2)
 			35: Skill Learned (Field 2)
 			36: ??
@@ -59,26 +62,26 @@ std::string victoryMessage = RPG::vocabulary[3]
 			38: ??
 			39: ??
 			40: ??
-		
+
 		Strings Page 4
-		
+
 			41: Items Possessed
 			42: Item Equipped
 			43: Currency
-		
+
 		Strings Page 5
-		
+
 			44: Fight
 			45: Auto-Fight
 			46: Escape
-		
+
 		????
-		
+
 			47: "Attack"
 			48: "Defend"
-		
+
 		Strings Page 5 (continued)
-		
+
 			49: Item
 			50: Skill
 			51: Equipment
@@ -116,15 +119,16 @@ std::string victoryMessage = RPG::vocabulary[3]
 			83: Row
 			84: Wait ON
 			85: Wait OFF
-		
+
 		????
-		
+
 			86: ??
-		
+
 		String Page 1 (continued)
-		
+
 			87:  "Miss" Message
 	*/
-	static RPG::DStringPtr *&vocabulary = (**reinterpret_cast<RPG::DStringPtr ***>(0x4CDCB4));
-	
+	extern RPG::DStringPtr *&vocabulary;
+
 }
+#endif /* VOCABULARY_H */

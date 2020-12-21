@@ -1,3 +1,10 @@
+#ifndef DBCLASS_H
+#define DBCLASS_H
+#include "DString.h"
+#include "DArray.h"
+#include "ArrayBaseOne.h"
+#include "DBActor.h"
+#include "Catalog.h"
 namespace RPG {
 	/*! \brief Used for the default data of classes which is defined in the
 		database
@@ -11,7 +18,7 @@ namespace RPG {
 		\sa RPG::Actor
 		\sa RPG::actors
 	*/
-	
+
 	class DBClass {
 		public:
 			void **vTable;
@@ -32,47 +39,47 @@ namespace RPG {
 			int expSecondary; //!< Secondary experience curve parameter
 			int expTertiary; //!< Tertiary experience curve parameter
 			CatalogPtr<SkillProgression *> skillLearning; //!< Skill learning data
-			
+
 			/*! \brief Condition Resistance Array (See RPG::DamageMultiplier)
-				
-				If at a certain point, the resistance of a condition and all conditions higher than it are C, the conditions.size will equal the number of the highest non-C condition. 
-				
-				\b Example: 
-				
+
+				If at a certain point, the resistance of a condition and all conditions higher than it are C, the conditions.size will equal the number of the highest non-C condition.
+
+				\b Example:
+
 					Cond1: A
 					Cond2: B
 					Cond3: C
 					Cond4: C
 					Cond5: C
-					
+
 				Because Cond3 is C, and those above it are C, conditions.size will be 2, because Cond2 is the last non-C condition.
-					
+
 				\warning This can be confusing, because if you need to use conditions[15], but check for conditions.size to be 15 first, it could be 10 if 11-15 are all C, so the check would be false. The solution would be to use RPG::conditions.count() for the check instead. This would resize the array once a condition higher than conditions.size is called, but because of the resizeValue in the template for RPG::DArray, conditions 11-15 would be correctly assigned to C
 			*/
 			DArray<DamageMultiplier_T, 1, 2> conditions;
-			
+
 			/*! \brief Attribute Resistance Array (See RPG::DamageMultiplier)
-				
-				If at a certain point, the resistance of an attribute and all attributes higher than it are C, the attributes.size will equal the number of the highest non-C attribute. 
-				
-				\b Example: 
-				
+
+				If at a certain point, the resistance of an attribute and all attributes higher than it are C, the attributes.size will equal the number of the highest non-C attribute.
+
+				\b Example:
+
 					Attr1: A
 					Attr2: B
 					Attr3: C
 					Attr4: C
 					Attr5: C
-					
+
 				Because Attr3 is C, and those above it are C, attributes.size will be 2, because Attr2 is the last non-C attribute.
-					
+
 				\warning This can be confusing, because if you need to use attributes[15], but check for attributes.size to be 15 first, it could be 10 if 11-15 are all C, so the check would be false. The solution would be to use RPG::attributes.count() for the check instead. This would resize the array once an attribute higher than attributes.size is called, but because of the resizeValue in the template for RPG::DArray, attributes 11-15 would be correctly assigned to C
 			*/
 			DArray<DamageMultiplier_T, 1, 2> attributes;
 			int battleGraphicId; //!< Battle graphic ID
 			int battleCommands[7]; //!< Default battle commands (\c 0 and \c -1 both mean "no command at this position")
-			
+
 	};
-	
+
 	/*! \ingroup game_objects
 		\brief Array of actors from the database, used for default values and
 		properties which are not supposed to be changed in-game.
@@ -85,5 +92,6 @@ int experience1 = RPG::dbClasses[1]->expPrimary;
 		\endcode
 		\sa RPG::actors
 	*/
-	static RPG::NamedCatalogPtr<RPG::DBClass *> &dbClasses = (**reinterpret_cast<RPG::NamedCatalogPtr<RPG::DBClass *> **>(0x4CDD7C));
+	extern RPG::NamedCatalogPtr<RPG::DBClass *> &dbClasses;
 }
+#endif /* DBCLASS_H */

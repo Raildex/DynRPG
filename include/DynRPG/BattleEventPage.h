@@ -1,4 +1,8 @@
+#ifndef BATTLEEVENTPAGE_H
+#define BATTLEEVENTPAGE_H
 namespace RPG {
+	class EventScriptList;
+	class BattleEventTrigger;
 
 	/*! \brief Used to access battle event pages specific to the monster group being referenced.
 
@@ -17,7 +21,8 @@ namespace RPG {
 
 	};
 
-	
+
 
 }
 
+#endif /* BATTLEEVENTPAGE_H */

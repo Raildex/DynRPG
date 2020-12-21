@@ -1,4 +1,7 @@
+#ifndef SCENEDEBUG_H
+#define SCENEDEBUG_H
 namespace RPG {
+	class Window;
 	//! Not implemented yet
 	typedef void AuroraBoard;
 
@@ -15,10 +18,11 @@ namespace RPG {
 			Window *winSetValue; //!< The window object for when a value has been set? Not so sure about this one...
 			bool initialized;
 	};
-	
+
 	/*! \ingroup game_objects
 		\brief Access to the debug scene (because why not?!)
 	*/
-	static RPG::SceneDebug *&debug = (**reinterpret_cast<RPG::SceneDebug ***>(0x4CDD4C));
+	extern RPG::SceneDebug *&debug;
 
 }
+#endif /* SCENEDEBUG_H */

@@ -1,4 +1,11 @@
+#ifndef BATTLEDATA_H
+#define BATTLEDATA_H
+#include "DList.h"
 namespace RPG {
+	class Panorama;
+	class Image;
+	class Window;
+	class Battler;
 	//! Possible values for RPG::BattleData::navLevel
 	enum BattleNavigationLevel {
 		BNAV_IN_FIGHT_ESCAPE_WINDOW,
@@ -92,9 +99,9 @@ namespace RPG {
 			bool isSys2CursorShown; //!< Is the system2 cursor currently on the screen?
 			BattlePhase battlePhase; //!< The phase of the battle (you can use this for special conditions)
 			/*! \brief Timer between the frame the last monster is defeated, and the end of battle message windows.
-			
+
 				Starts at 60 the moment the last enemy is defeated and counts back to 0 each frame (60 = 1 second)
-			
+
 			*/
 			int battlEndTimer;
 			bool isDefeat; //!< Was the party defeated? (you can use this for special actions upon losing the battle)
@@ -122,9 +129,9 @@ namespace RPG {
 			bool eventReady; //!< Is an event command ready to be executed?
 			bool delay; //!< Delay the battle (might be able to use this for long actions & animations)
 				bool _unknown_C3;
-			
+
 	};
-	
+
 	/*! \ingroup game_objects
 		\brief Data and settings for the current battle.
 
@@ -133,7 +140,8 @@ namespace RPG {
 std::string backdropName = RPG::battleData->backdropFilename.s_str());
 		\endcode
 	*/
-	static RPG::BattleData *&battleData = (**reinterpret_cast<RPG::BattleData ***>(0x4CDD38));
+	extern RPG::BattleData *&battleData;
 
 }
 
+#endif /* BATTLEDATA_H */

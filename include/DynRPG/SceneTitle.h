@@ -1,8 +1,12 @@
+#ifndef SCENETITLE_H
+#define SCENETITLE_H
 namespace RPG {
+	class Image;
+	class Window;
 	//! Not implemented yet
 	typedef void AuroraBoard;
 
-	/*! \brief Access to the title screen parameters. 
+	/*! \brief Access to the title screen parameters.
 		\sa RPG::title
 	*/
 	class SceneTitle {
@@ -20,11 +24,11 @@ namespace RPG {
 	};
 
 	/*! \ingroup game_objects
-		\brief Access to the title screen parameters. 
-		
+		\brief Access to the title screen parameters.
+
 		\warning Most of the parameters can't be used in onInitTitleScreen, because they haven't
 			been created yet. Use onFrame instead to catch them when they have.
-		
+
 		Example:
 		\code
 if (RPG::title->winStartLoadEnd) { // Moves the title screen window to position 0,32.
@@ -33,5 +37,6 @@ if (RPG::title->winStartLoadEnd) { // Moves the title screen window to position 
 }
 		\endcode
 	*/
-	static RPG::SceneTitle *&title = (**reinterpret_cast<RPG::SceneTitle ***>(0x4CDB94));
+	extern RPG::SceneTitle *&title;
 }
+#endif /* SCENETITLE_H */

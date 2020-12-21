@@ -1,4 +1,8 @@
+#ifndef PANORAMA_H
+#define PANORAMA_H
+#include "DString.h"
 namespace RPG {
+	class Image;
 	/*! \brief Used to define a panorama object (ie. battle frames), or the panorama/frame on a particular map
 		\sa RPG::Map
 	*/
@@ -24,14 +28,15 @@ namespace RPG {
 			int mapWidth; //!< Map width (in tiles)
 			int mapHeight; //!< Map height (in tiles)
 	};
-	
+
 	/*! \ingroup game_objects
 		\brief Settings for the panorama on the current map.
-		
+
 		Example:
 		\code
 std::string panoramaName = RPG::panorama->filename.s_str());
 		\endcode
 	*/
-	static RPG::Panorama *&panorama = (**reinterpret_cast<RPG::Panorama ***>(0x4CDBBC));
+	extern RPG::Panorama *&panorama;
 }
+#endif /* PANORAMA_H */

@@ -1,4 +1,10 @@
+#ifndef BATTLESETTINGS_H
+#define BATTLESETTINGS_H
+#include "Catalog.h"
+#include "Battler.h"
+#include "Teleport.h"
 namespace RPG {
+	class BattleCommand;
 
 	//! Possible values for RPG::BattleSettings::layout
 	enum BattleLayout {
@@ -6,16 +12,16 @@ namespace RPG {
 		BL_ALTERNATIVE, //!< "Alternative" layout
 		BL_GAUGE //!< "Gauge" layout
 	};
-	
+
 	//! One-byte version of RPG::BattleLayout
 	typedef unsigned char BattleLayout_T;
-	
+
 	//! Possible values for RPG::BattleSettings::randomEncounterDeath
 	enum RandomEncounterDeath {
 		RE_DEATH_GAME_OVER,
 		RE_DEATH_CALL_COMMON_EVENT
 	};
-	
+
 	/*! \brief Used for battle settings (layout, etc.)
 		\sa RPG::battleSettings
 		\sa RPG::BattleLayout
@@ -46,11 +52,12 @@ namespace RPG {
 			int deathTeleportY; //!< The Map's Y coordinate to teleport to upon death
 			TeleportDirection deathTeleportFacingDirection; //!< The direction to face in upon teleporting after death (see RPG::TeleportDirection)
 	};
-	
+
 	/*! \ingroup game_objects
 		\brief Battle settings
-		
+
 		Please mind that this object is not saved and loaded automatically, but only initialized once at startup.
 	*/
-	static RPG::BattleSettings *&battleSettings = (**reinterpret_cast<RPG::BattleSettings ***>(0x4CDD60));
+	extern RPG::BattleSettings *&battleSettings;
 }
+#endif /* BATTLESETTINGS_H */

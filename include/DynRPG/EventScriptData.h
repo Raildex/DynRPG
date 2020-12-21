@@ -1,4 +1,8 @@
+#ifndef EVENTSCRIPTDATA_H
+#define EVENTSCRIPTDATA_H
+#include "DList.h"
 namespace RPG {
+	class EventScriptLine;
 	/*! \brief List of event script lines
 		\note Do not ask me why this class is there, I didn't invent it.
 	*/
@@ -26,3 +30,4 @@ namespace RPG {
 			RPG::EventScriptLine *line(int index);
 	};
 }
+#endif /* EVENTSCRIPTDATA_H */

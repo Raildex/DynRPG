@@ -1,6 +1,8 @@
 #define DYNRPG_STATIC
-#include "DynRPG.h"
-
+#include "Character.h"
+#include "DynASM.h"
+#include "EventData.h"
+#include "Actor.h"
 namespace RPG {
 	int Character::getScreenX() {
 		int ret;
@@ -79,6 +81,17 @@ namespace RPG {
 		return pages[id] != NULL;
 	}
 
+	/*! \brief Built-in function to run various checks after a step has been made (NOT map collision!)... event-related checks (not all known)
+	*/
+
+	inline void Event::act() {
+		asm volatile("call *%%esi"
+			: "=a" (_eax)
+			: "S" (vTable[15]), "a" (this)
+			: "edx", "ecx", "cc", "memory");
+		// 0x?????, vTable[15]
+	}
+
 	HeroControlMode Hero::getControlMode() {
 		unsigned char &a1 = *(unsigned char*)0x4A9B87;
 		unsigned char &a2 = *(unsigned char*)0x4A9A04;
@@ -104,5 +117,30 @@ namespace RPG {
 				a2 = 0xC3;
 				break;
 		}
+	}
+
+	/*! \brief Built-in function to run various checks after a step has been made (NOT map collision!)... enemy encounters most importantly, event-related checks (not all known)
+
+	Use this function if the hero's movement behavior is being altered dramatically (pixel movement for instance), but still need enemy encounter checks.
+	*/
+
+	inline void Hero::act() {
+		asm volatile("call *%%esi"
+			: "=a" (_eax)
+			: "S" (0x4A9A04), "a" (this)
+			: "edx", "ecx", "cc", "memory");
+		// 0x4A9A04, vTable[15]
+	}
+	inline void Hero::checkEventOverlapTrigger(EventTrigger triggerType, bool startedByActionButton) {
+		asm volatile("call *%%esi"
+			: "=a" (RPG::_eax), "=d" (RPG::_edx), "=c" (RPG::_ecx)
+			: "S" (0x4AA8CC), "a" (this), "d" (triggerType), "c" (startedByActionButton)
+			: "cc", "memory");
+	}
+	inline void Hero::checkEventInFrontTrigger(EventTrigger triggerType, bool startedByActionButton) {
+		asm volatile("call *%%esi"
+			: "=a" (RPG::_eax), "=d" (RPG::_edx), "=c" (RPG::_ecx)
+			: "S" (0x4AA978), "a" (this), "d" (triggerType), "c" (startedByActionButton)
+			: "cc", "memory");
 	}
 }

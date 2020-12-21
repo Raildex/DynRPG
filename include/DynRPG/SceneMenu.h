@@ -1,4 +1,14 @@
+#ifndef SCENEMENU_H
+#define SCENEMENU_H
 namespace RPG {
+	class WindowMenuTarget;
+	class WindowMenuItem;
+	class WindowMenuSkill;
+	class Window;
+	class WindowMenuEquip;
+	class WindowMenuEnd;
+	class WindowMenuStatus;
+	class WindowMenuOrder;
 	/*! \brief Possible values for RPG::SceneMenu::screen
 
 		The sub-screen the user is currently on.
@@ -66,7 +76,7 @@ namespace RPG {
 	/*! \ingroup game_objects
 		\brief Access to the menu scene
 	*/
-	static RPG::SceneMenu *&menu = (**reinterpret_cast<RPG::SceneMenu ***>(0x4CDC60));
+	extern RPG::SceneMenu *&menu;
 
 }
 
@@ -75,3 +85,4 @@ namespace RPG {
 	return (RPG::MenuScreen)(**reinterpret_cast<char ***>(0x4CDC60))[12];
 }*/
 
+#endif /* SCENEMENU_H */

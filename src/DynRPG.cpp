@@ -10,6 +10,9 @@
 #include "DynRPG.h"
 #include <stdio.h>
 #include <sstream>
+#include "Screen.h"
+#include "Catalog.h"
+#include "DString.h"
 
 namespace RPG {
 	void showError(std::string message, int eventId, int pageId, int lineId) {
@@ -121,4 +124,34 @@ namespace RPG {
 		}
 		return ret;
 	}
+
+	void ***sceneObjects[] __attribute__((unused)) = {
+		(void ***)0x4CDC1C, (void ***)0x4CDC60, (void ***)0x4CDD38,
+		(void ***)0x4CDE4C, (void ***)0x4CDBF4, (void ***)0x4CDFCC,
+		(void ***)0x4CDB94, (void ***)0x4CE008, (void ***)0x4CDD4C};
+	//! \endcond
+
+	//! The test play flag
+	/*! This flag may also be changed at runtime. */
+	bool &isTestPlay = (**reinterpret_cast<bool **>(0x4CDD50));
+
+	//! The test play flag
+	/*! This flag may also be changed at runtime, but it probably wouldn't make sense. */
+	bool &isBattleTest = (**reinterpret_cast<bool **>(0x4CDCB8));
+	//static bool &isBattleTest = (**reinterpret_cast<bool **>(0x4CDCB4)); // 0x4CDCB4 is what's documented by bugmenot... check both
+
+	//! Should the title screen be shown (according to the "Show Title" button in the %RPG Maker)?
+	/*! This flag may also be changed at runtime, but it probably wouldn't make sense. */
+	bool &showTitle = (**reinterpret_cast<bool **>(0x4CDF90));
+
+	//! Speed of the ATB system in percent
+	/*! This value can be set to zero to pause the battle.
+		\note This is a special feature of the DynRPG patch. */
+	int &battleSpeed = (*reinterpret_cast<int *>(0x442600));
+
+	//! Allows transparent windows in outside of the map too
+	/*! Set this flag to \c true to allow transparent windows in the menu, on
+		the title screen, etc.
+		\note This is a special feature of the DynRPG patch. */
+	bool &transparentWindowsEverywhere = (*reinterpret_cast<bool *>(0x442604));
 }

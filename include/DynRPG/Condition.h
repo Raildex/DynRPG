@@ -1,6 +1,9 @@
+#ifndef CONDITION_H
+#define CONDITION_H
+#include "DString.h"
 namespace RPG {
 	/*! \brief Possible values for RPG::Condition::actionRestriction
-	
+
 		The type of action restriction as defined in the condition tab of the database.
 	*/
 	enum ActionRestriction {
@@ -9,12 +12,12 @@ namespace RPG {
 		AR_ATTACK_ENEMIES_RANDOMLY,
 		AR_ATTACK_ALLIES_RANDOMLY
 	};
-	
+
 	//! One-byte version or RPG::ActionRestriction
 	typedef unsigned char ActionRestriction_T;
-	
+
 	/*! \brief Possible values for RPG::Condition::statAlteration
-	
+
 		The base stat alteration as defined for the condition
 	*/
 	enum BaseStatAlteration {
@@ -22,9 +25,9 @@ namespace RPG {
 		BSA_DOUBLE,
 		BSA_NONE
 	};
-	
+
 	/*! \brief Possible values for RPG::Condition::hpAlterationType and RPG::Condition::mpAlterationType
-	
+
 		The alteration type for hp & mp as defined for the condition
 	*/
 	enum AlterationType {
@@ -86,7 +89,7 @@ namespace RPG {
 			AlterationType hpAlterationType; //!< HP alteration type (See RPG::AlterationType)
 			AlterationType mpAlterationType; //!< MP alteration type (See RPG::AlterationType)
 	};
-	
+
 	/*! \ingroup game_objects
 		\brief Array of conditions from the database, used for default values and
 		properties which are not supposed to be changed in-game.
@@ -98,5 +101,6 @@ namespace RPG {
 int condPercentage = RPG::conditions[9]->susC;
 		\endcode
 	*/
-	static RPG::NamedCatalogPtr<RPG::Condition *> &conditions = (**reinterpret_cast<RPG::NamedCatalogPtr<RPG::Condition *> **>(0x4CDE84));
+	extern RPG::NamedCatalogPtr<RPG::Condition *> &conditions;
 }
+#endif /* CONDITION_H */

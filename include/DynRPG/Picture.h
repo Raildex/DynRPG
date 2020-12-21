@@ -1,13 +1,19 @@
+#ifndef PICTURE_H
+#define PICTURE_H
+#include "DString.h"
+#include <string>
+#include "Catalog.h"
 namespace RPG {
+	class Image;
 	//! Special effects for pictures
 	enum PictureEffect {
 		PFX_NONE, //!< No effect
 		PFX_ROTATE, //!< Rotation
 		PFX_RIPPLE //!< Ripple effect ("Waver")
 	};
-	
+
 	/*! \brief Used for in-game pictures
-		
+
 		Pictures have <b>two</b> image buffers. The first one (\ref image) is
 		used for the <b>top half</b> of the image, the second one (\ref image2)
 		is used for the <b>bottom half</b> of the image. When the picture is
@@ -53,7 +59,7 @@ namespace RPG {
 			PictureEffect effect; //!< Current picture effect
 				int _unknown_84;
 			/*! \brief Strength of picture effect (see details)
-				
+
 				For RPG::PFX_ROTATE, negative values will rotate the picture
 				conter-clockwise, while zero will pause the rotation.
 			*/
@@ -71,10 +77,10 @@ namespace RPG {
 			int movementTimer; //!< Number of frames left until movement is completed (zero means not moving)
 				int _unknown_C4;
 			double angle; //!< Current picture angle (\c 256 units equal to 360 degree!)
-			
+
 			//! Draws the content of the bottom buffer onto the top buffer and clears the bottom buffer afterwards
 			void merge();
-			
+
 			/*! \brief Loads and shows a picture
 				\param filename Filename
 				\param x X position
@@ -93,12 +99,12 @@ namespace RPG {
 				\warning This is an experimental function.
 			*/
 			void show(
-				std::string filename, int x, int y, bool moveWithMap, 
-				int magnification, int transparency, int transparency2, 
-				bool useMaskColor, int red, int green, int blue, int chroma, 
+				std::string filename, int x, int y, bool moveWithMap,
+				int magnification, int transparency, int transparency2,
+				bool useMaskColor, int red, int green, int blue, int chroma,
 				RPG::PictureEffect effect, int effectStrength
 			);
-			
+
 			/*! \brief Initiates a picture movement
 				\param x Target X position
 				\param y Target Y position
@@ -115,33 +121,34 @@ namespace RPG {
 				\warning This is an experimental function.
 			*/
 			void move(
-				int x, int y, int magnification, int transparency, int transparency2, 
+				int x, int y, int magnification, int transparency, int transparency2,
 				int red, int green, int blue, int chroma, RPG::PictureEffect effect, int effectStrength,
 				int duration
 			);
-			
+
 			/*! \brief Erases a picture
 				\warning This is an experimental function.
 			*/
 			void erase();
-			
+
 			/*! \brief Updates picture movement and effects
-				
+
 				This function can be used to update picture movement and
 				effects even in different game scenes than the map.
 				\warning If this function is called more than once per frame,
 				the movement or animation will be too fast.
 			*/
 			void update();
-			
+
 			//! Draws a picture to the screen, even in different game scenes than the map
 			void draw();
 	};
-	
+
 	/*! \ingroup game_objects
 		\brief Array of pictures
-		
+
 		Use the picture ID as index for accessing a picture.
 	*/
-	static RPG::NamedCatalogPtr<RPG::Picture *> &pictures = (**reinterpret_cast<RPG::NamedCatalogPtr<RPG::Picture *> **>(0x4CDF3C));
+	extern RPG::NamedCatalogPtr<RPG::Picture *> &pictures;
 }
+#endif /* PICTURE_H */

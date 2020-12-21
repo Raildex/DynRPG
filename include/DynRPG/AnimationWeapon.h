@@ -1,27 +1,30 @@
+#ifndef ANIMATIONWEAPON_H
+#define ANIMATIONWEAPON_H
+#include "Animation.h"
 namespace RPG {
-	
+
 	/*! \brief Possible values for RPG::Item::WeaponAnimation::numAttacks
-	
-		This is the number of times a weapon will attack. 
-		\note If the weapon has the attackTwice flag set, the number of attacks will double. 
+
+		This is the number of times a weapon will attack.
+		\note If the weapon has the attackTwice flag set, the number of attacks will double.
 	*/
 	enum WeaponNumberOfAttacks {
 		WEAPON_NUM_ATTACKS_ONCE,
 		WEAPON_NUM_ATTACKS_TWICE,
-		WEAPON_NUM_ATTACKS_THREE_TIMES 
+		WEAPON_NUM_ATTACKS_THREE_TIMES
 		// Note: Are more values possible? (3+)
 	};
-	
+
 	/*! \brief Possible values for RPG::Item::WeaponAnimation::rangedAnimSpeed
-		
-		The speed of the ranged weapon's ammunition battle animation. 
+
+		The speed of the ranged weapon's ammunition battle animation.
 	*/
 	enum WeaponRangedAnimSpeed {
-		WEAPON_RANGED_ANIM_FAST, 
-		WEAPON_RANGED_ANIM_MEDIUM, 
+		WEAPON_RANGED_ANIM_FAST,
+		WEAPON_RANGED_ANIM_MEDIUM,
 		WEAPON_RANGED_ANIM_SLOW
 	};
-	
+
 	/*! \brief Used to define a weapon animation for a particular battler.
 		\sa RPG::AnimationBattlerPose
 		\sa RPG::AnimationMoveBeforeAttack
@@ -49,3 +52,4 @@ namespace RPG {
 			WeaponRangedAnimSpeed rangedAnimSpeed; //!< Ranged animation speed? (See RPG::WeaponRangedAnimSpeed)
 	};
 }
+#endif /* ANIMATIONWEAPON_H */

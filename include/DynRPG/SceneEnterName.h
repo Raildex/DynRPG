@@ -1,4 +1,8 @@
+#ifndef SCENEENTERNAME_H
+#define SCENEENTERNAME_H
 namespace RPG {
+	class Window;
+	class Image;
 	//! Not implemented yet
 	typedef void AuroraBoard;
 
@@ -18,12 +22,13 @@ namespace RPG {
 			int heroId; //!< The ID of the hero
 			int initialFontSet; //!< The initial font set
 			bool keepDefaultName; //!< Keep the default name? (??)
-			
+
 	};
-	
+
 	/*! \ingroup game_objects
 		\brief Access to the Enter Hero Name scene
 	*/
-	static RPG::SceneEnterName *&enterName = (**reinterpret_cast<RPG::SceneEnterName ***>(0x4CDBF4));
+	extern RPG::SceneEnterName *&enterName;
 
 }
+#endif /* SCENEENTERNAME_H */

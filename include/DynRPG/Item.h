@@ -1,7 +1,13 @@
-namespace RPG {	
+#ifndef ITEM_H
+#define ITEM_H
+#include "DString.h"
+#include "DArray.h"
+#include "Catalog.h"
+namespace RPG {
+	class AnimationWeapon;
 	/*! \brief Possible values for RPG::Item::type
-		
-		The item's type. This determines which parameters will be available to use. 
+
+		The item's type. This determines which parameters will be available to use.
 		\note Refer to the database's Item page to determine which params can be used.
 		\warning Use of any variables outside of their item type is untested.
 	*/
@@ -18,46 +24,46 @@ namespace RPG {
 		ITEM_SCROLL, //!< Skill Scroll
 		ITEM_SWITCH
 	};
-	
+
 	/*! \brief Possible values for RPG::Item::target
-		
-		If ITEM_MEDICINE, this determines if one hero or all heroes are affected. 
+
+		If ITEM_MEDICINE, this determines if one hero or all heroes are affected.
 	*/
 	enum ItemTarget {
 		ITEM_TARGET_SINGLE,
 		ITEM_TARGET_ALL
 	};
-	
+
 	/*! \brief Possible values for RPG::Item::messageShown
-		
-		If ITEM_SCROLL, this determines if the item's name or the skill's name 
-		will be used in the battle window. 
+
+		If ITEM_SCROLL, this determines if the item's name or the skill's name
+		will be used in the battle window.
 	*/
 	enum ItemScrollMsgShown {
 		ITEM_SCROLL_MSG_ITEM, //!< Item Name
 		ITEM_SCROLL_MSG_SKILL //!< Name of Associated Skill
 	};
-	
+
 	/*! \brief Possible values for RPG::Item::conditionFlag
-		
-		Determines if the item will inflict or remove. 
+
+		Determines if the item will inflict or remove.
 	*/
 	enum ItemConditionFlag {
 		ITEM_CONDITION_INFLICT,
 		ITEM_CONDITION_REMOVE,
 	};
-	
+
 		/*! \brief Possible values for RPG::Item::weaponTrajectory
-	
+
 		If ranged weapon, this is the movement of the ammunition.
 	*/
 	enum WeaponRangedTrajectory {
 		WEAPON_RANGED_TRAJ_FLY_TO_TARGET, //!< Fly Straight to Target (crossbows, bullets, etc.)
 		WEAPON_RANGED_TRAJ_RETURN_TO_HERO //!< Return to User after Striking (steel ball & chain, etc.)
 	};
-	
+
 	/*! \brief Possible values for RPG::Item::weaponTargetting
-	
+
 		If ranged weapon, this is the type of targetting that the weapon uses.
 	*/
 	enum WeaponRangedTargetting {
@@ -66,7 +72,7 @@ namespace RPG {
 		WEAPON_RANGED_TARGET_ALL_SIMUL, //!< Strike Each Enemy Simultaneously
 		WEAPON_RANGED_TARGET_ALL_INTURN //!< STrike Each Enemy in Turn
 	};
-	
+
 	/*! \brief Used for the data of items which can be accessed or changed in-game.
 
 		\sa RPG::items
@@ -145,14 +151,14 @@ namespace RPG {
 			bool invokeSkill; //!< Does the item invoke a skill (set skill with skillId)
 			DArray<bool> usableByClass; //!< Usable By Class Array
 			bool isCursed; //!< Is the item cursed?
-			
+
 			// Note: conditionFlag is a DWORD, so this can't be defined as bool
 			ItemConditionFlag conditionFlag; //!< Does the item remove the condition instead of inflict? (see RPG::ItemConditionFlag)
 			WeaponRangedTrajectory weaponTrajectory; //!< If a ranged weapon, the weapons' trajectory (see RPG::WeaponRangedTrajectory)
 			WeaponRangedTargetting weaponTargetting; //!< If a ranged weapon, the weapons' target(s) (see RPG::WeaponRangedTargetting)
-			
+
 	};
-	
+
 	/*! \ingroup game_objects
 		\brief Array of items from the database, used for default values and
 		properties which are not supposed to be changed in-game.
@@ -165,5 +171,6 @@ int swordHitProb = RPG::items[36]->hitProb;
 		\endcode
 		\sa RPG::inventory
 	*/
-	static RPG::NamedCatalogPtr<RPG::Item *> &items = (**reinterpret_cast<RPG::NamedCatalogPtr<RPG::Item *> **>(0x4CDB14));
+	extern RPG::NamedCatalogPtr<RPG::Item *> &items;
 }
+#endif /* ITEM_H */

@@ -1,5 +1,8 @@
+#ifndef BATTLECOMMAND_H
+#define BATTLECOMMAND_H
+#include "DString.h"
 namespace RPG {
-	
+
 	//! Possible values for RPG::BattleCommands::archetype
 	enum BattleCommandArchetype {
 		BCOM_ATTACK,
@@ -10,7 +13,7 @@ namespace RPG {
 		BCOM_ESCAPE,
 		BCOM_LINK_TO_EVENT
 	};
-	
+
 	/*! \brief Used to define the actual battle commands (Attack, Defend, etc)
 		\sa RPG::BattleCommandArchetype
 		\sa RPG::BattleSettings
@@ -23,5 +26,6 @@ namespace RPG {
 			DStringPtr name; //!< The name of the battle command
 			BattleCommandArchetype archetype; //!< The command's archetype (see RPG::BattleCommandArchetype)
 	};
-	
+
 }
+#endif /* BATTLECOMMAND_H */

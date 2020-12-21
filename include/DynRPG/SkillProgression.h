@@ -1,3 +1,5 @@
+#ifndef SKILLPROGRESSION_H
+#define SKILLPROGRESSION_H
 namespace RPG {
 	/*! \brief Used to define the skill progression table for a particular hero.
 		\sa RPG::DBActor
@@ -12,3 +14,4 @@ namespace RPG {
 			int skillId; //!< ID of the skill
 	};
 }
+#endif /* SKILLPROGRESSION_H */

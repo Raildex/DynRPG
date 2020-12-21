@@ -1,4 +1,9 @@
-namespace RPG {
+#ifndef CATALOG_H
+#define CATALOG_H
+#include "DList.h"
+#include "DynASM.h"
+namespace RPG
+{
 	/*! \brief Wrapper class for RPG::DList which doesn't crash if the index
 		is out of bounds
 		\note Please do not ask me why this class is there. I didn't invent it.
@@ -11,28 +16,32 @@ namespace RPG {
 		\sa RPG::DList
 	*/
 	template <class T = void *>
-	class Catalog {
-		public:
-			void **vTable;
-			//! \cond
-			void **itemVTable;
-			//! \endcond
-			DListPtr<T> list; //!< Pointer to the actual RPG::DList
+	class Catalog
+	{
+	public:
+		void **vTable;
+		//! \cond
+		void **itemVTable;
+		//! \endcond
+		DListPtr<T> list; //!< Pointer to the actual RPG::DList
 
-			//! Array access operator
-			T operator[](int index) {
-				return get(index);
-			}
+		//! Array access operator
+		T operator[](int index)
+		{
+			return get(index);
+		}
 
-			//! Array access method
-			T get(int index) {
-				return list.get(index);
-			}
+		//! Array access method
+		T get(int index)
+		{
+			return list.get(index);
+		}
 
-			//! Returns the number of items in the list
-			int count() {
-				return list.list->count;
-			}
+		//! Returns the number of items in the list
+		int count()
+		{
+			return list.list->count;
+		}
 	};
 
 	/*! \brief Wrapper class for RPG::Catalog pointers (syntactic sugar)
@@ -45,24 +54,28 @@ namespace RPG {
 		\sa RPG::NamedCatalogPtr
 	*/
 	template <class T = void *>
-	class CatalogPtr {
-		public:
-			Catalog<T> *ptr; //!< Pointer to the actual RPG::Catalog
+	class CatalogPtr
+	{
+	public:
+		Catalog<T> *ptr; //!< Pointer to the actual RPG::Catalog
 
-			//! Array access operator
-			T operator[](int index) {
-				return ptr->get(index);
-			}
+		//! Array access operator
+		T operator[](int index)
+		{
+			return ptr->get(index);
+		}
 
-			//! Array access method
-			T get(int index) {
-				return ptr->get(index);
-			}
+		//! Array access method
+		T get(int index)
+		{
+			return ptr->get(index);
+		}
 
-			//! Returns the number of items in the list
-			int count() {
-				return ptr ? ptr->count() : 0;
-			}
+		//! Returns the number of items in the list
+		int count()
+		{
+			return ptr ? ptr->count() : 0;
+		}
 	};
 
 	/*! \brief Class inherited from RPG::Catalog in which elements with
@@ -81,22 +94,25 @@ for(int i = 0; i < myCatalog.count(); i++) {
 		\sa RPG::NamedCatalogPtr
 	*/
 	template <class T = void *>
-	class NamedCatalog : public Catalog<T> {
-		public:
-			//! Array access operator
-			T operator[](int index) {
-				return get(index);
-			}
+	class NamedCatalog : public Catalog<T>
+	{
+	public:
+		//! Array access operator
+		T operator[](int index)
+		{
+			return get(index);
+		}
 
-			//! Array access method
-			T get(int index) {
-				T ret = NULL;
-				asm volatile("call *%%esi"
-					: "=a" (ret), "=d" (_edx)
-					: "S" (0x475740), "a" (this), "d" (index)
-					: "ecx", "cc", "memory"); // GetFromList
-				return ret;
-			}
+		//! Array access method
+		T get(int index)
+		{
+			T ret = NULL;
+			asm volatile("call *%%esi"
+						 : "=a"(ret), "=d"(_edx)
+						 : "S"(0x475740), "a"(this), "d"(index)
+						 : "ecx", "cc", "memory"); // GetFromList
+			return ret;
+		}
 	};
 
 	/*! \brief Wrapper class for RPG::NamedCatalog pointers (syntactic sugar)
@@ -108,27 +124,33 @@ for(int i = 0; i < myCatalog.count(); i++) {
 		\sa RPG::NamedCatalog
 	*/
 	template <class T = void *>
-	class NamedCatalogPtr {
-		public:
-			NamedCatalog<T> *ptr;
+	class NamedCatalogPtr
+	{
+	public:
+		NamedCatalog<T> *ptr;
 
-			//! Array access operator
-			T operator[](int index) {
-				return ptr->get(index);
-			}
+		//! Array access operator
+		T operator[](int index)
+		{
+			return ptr->get(index);
+		}
 
-			//! Array access method
-			T get(int index) {
-				return ptr->get(index);
-			}
+		//! Array access method
+		T get(int index)
+		{
+			return ptr->get(index);
+		}
 
-			//! Returns the number of items in the list (not the highest ID!)
-			int count() {
-				return ptr ? ptr->count() : 0;
-			}
+		//! Returns the number of items in the list (not the highest ID!)
+		int count()
+		{
+			return ptr ? ptr->count() : 0;
+		}
 
-			/*int size() {
+		/*int size() {
 				return sizeof((*ptr->list.list->items))/sizeof((*ptr->list.list->get(0)));
 			}*/
 	};
-}
+} // namespace RPG
+
+#endif

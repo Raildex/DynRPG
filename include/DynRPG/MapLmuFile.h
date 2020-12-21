@@ -1,3 +1,5 @@
+#ifndef MAPLMUFILE_H
+#define MAPLMUFILE_H
 namespace RPG {
 
 	/*! \brief The paramaters for the LMU (map) files.
@@ -18,3 +20,4 @@ namespace RPG {
 				UnknownPointer *_unknown_18; // MapProperties? (0 if not used)
 	};
 }
+#endif /* MAPLMUFILE_H */

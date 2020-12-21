@@ -1,7 +1,14 @@
+#ifndef SKILL_H
+#define SKILL_H
+#include "DString.h"
+#include "DArray.h"
+#include "Catalog.h"
 namespace RPG {
+	class Sound;
+	class AnimationSkill;
 	/*! \brief Possible values for RPG::Skill::type
-	
-		The skill's type. This determines which parameters will be available to use. 
+
+		The skill's type. This determines which parameters will be available to use.
 		\note Skill subsets are accessible through values 4+, with 4 being the first subset,
 		5 being the second, 6 being the third, etc.
 		\warning Max number of subsets: 252 (in extreme cases), but beyond that is untested.
@@ -13,9 +20,9 @@ namespace RPG {
 		SKILL_SWITCH
 		// Skill subsets valued 4-252
 	};
-	
+
 	/*! \brief Possible values for RPG::Skill::target
-	
+
 		The target type for the skill as defined in the database.
 		\warning Not to be confused with Action::target!
 	*/
@@ -26,7 +33,7 @@ namespace RPG {
 		SKILL_TARGET_ALLY,
 		SKILL_TARGET_ALL_ALLIES
 	};
-	
+
 	/*! \brief Used for the data of skills which can be accessed or changed in-game.
 
 		\sa RPG::skills
@@ -40,22 +47,22 @@ namespace RPG {
 			int id; //!< ID of the skill
 			DStringPtr name; //!< The name of the skill
 			DStringPtr description; //!< The description of the skill
-			
+
 			DStringPtr useMsg2k; //!< Use message #1. If your project was carried over from RM2000, this was defined there.
 			// more research
 			DStringPtr useMsg2kAlt; //!< Use message #2.  If your project was carried over from RM2000, this was defined there.
-			/* 
-				On RPG::Skills (and probably RPG::skills, too) right before RPG::SkillType, 
-				there's the failure/evasion message missing. Since it's only accessible in RM2k 
-				as well and is set to 0 if a new Skill is created in RM2k3, it sure would be nice 
+			/*
+				On RPG::Skills (and probably RPG::skills, too) right before RPG::SkillType,
+				there's the failure/evasion message missing. Since it's only accessible in RM2k
+				as well and is set to 0 if a new Skill is created in RM2k3, it sure would be nice
 				if it was possible to manipulate it via RPG::skill->evasiontype
 
-				...because if that value isn't == 3 (enumerator = SKILL_AVOIDABLE) it will not take 
-				the agility of target or user into account when calculating the success chance. 
+				...because if that value isn't == 3 (enumerator = SKILL_AVOIDABLE) it will not take
+				the agility of target or user into account when calculating the success chance.
 			*/
-			// more research - does this require an enum? 
+			// more research - does this require an enum?
 			int evasionType; //!< Evasion Type and failure message?
-			
+
 			SkillType type; //!< Skill type (see RPG::SkillType)
 			int mpCost; //!< MP cost
 			SkillTarget target; //!< Target of skill (see RPG::SkillTarget)
@@ -87,10 +94,10 @@ namespace RPG {
 				int _unknown_02;
 				int _unknown_03;
 			NamedCatalogPtr<AnimationSkill *> skillAnims; //!< Pointer to the RPG::AnimationSkill array \sa RPG::SKILL_NORMAL
-			
-			
+
+
 	};
-	
+
 	/*! \ingroup game_objects
 		\brief Array of skills from the database, used for default values and
 		properties which are not supposed to be changed in-game.
@@ -102,5 +109,6 @@ namespace RPG {
 int animationId = RPG::skills[4]->battleAnimId;
 		\endcode
 	*/
-	static RPG::NamedCatalogPtr<RPG::Skill *> &skills = (**reinterpret_cast<RPG::NamedCatalogPtr<RPG::Skill *> **>(0x4CDBC4));
+	extern RPG::NamedCatalogPtr<RPG::Skill *> &skills;
 }
+#endif /* SKILL_H */

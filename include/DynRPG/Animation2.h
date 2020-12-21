@@ -1,4 +1,10 @@
+#ifndef ANIMATION2_H
+#define ANIMATION2_H
+#include "DString.h"
+#include "Catalog.h"
 namespace RPG {
+	class Animation2Pose;
+	class Animation2Weapon;
 	/*! \brief Possible values for RPG::Animation2::displaySpeed
 
 		The speed of the battler animation
@@ -38,5 +44,6 @@ namespace RPG {
 std::string animation2Name = RPG::battlerAnimations[4]->name.s_str());
 		\endcode
 	*/
-	static RPG::NamedCatalogPtr<RPG::Animation2 *> &battlerAnimations = (**reinterpret_cast<RPG::NamedCatalogPtr<RPG::Animation2 *> **>(0x4CDC90));
+	extern RPG::NamedCatalogPtr<RPG::Animation2 *> &battlerAnimations;
 }
+#endif /* ANIMATION2_H */

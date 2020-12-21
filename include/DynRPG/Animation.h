@@ -1,27 +1,34 @@
+#ifndef ANIMATION_H
+#define ANIMATION_H
+#include "Catalog.h"
+#include "DString.h"
 namespace RPG {
-	/*! \brief Possible values for RPG::WeaponAnimation::battlerPose and RPG::SkillAnimation::battlerPose
-	
+	class AnimationEffect;
+	class AnimationFrame;
+		/*! \brief Possible values for RPG::WeaponAnimation::battlerPose and RPG::SkillAnimation::battlerPose
+
 		The animation pose ID of the battler.
 		\note Each of these is numerical based starting from 0, but correspond to their value+1 in the database
 		\note Use numerical values for poses 13-32. These are 0 based, so they will be defined as 12-31 here.
 	*/
-	enum AnimationBattlerPose { // zero-based
-		ANIM_POSE_STAND, //!< Pose 1 in the database
+		enum AnimationBattlerPose
+	{						   // zero-based
+		ANIM_POSE_STAND,	   //!< Pose 1 in the database
 		ANIM_POSE_PUNCH_RIGHT, //!< Pose 2 in the database
-		ANIM_POSE_PUNCH_LEFT, //!< Pose 3 in the database
-		ANIM_POSE_SKILL, //!< Pose 4 in the database
-		ANIM_POSE_DEAD, //!< Pose 5 in the database
-		ANIM_POSE_DAMAGE, //!< Pose 6 in the database
-		ANIM_POSE_DAZED, //!< Pose 7 in the database
-		ANIM_POSE_BLOCK, //!< Pose 8 in the database
-		ANIM_POSE_RUN_LEFT, //!< Pose 9 in the database
-		ANIM_POSE_RUN_RIGHT, //!< Pose 10 in the database
-		ANIM_POSE_VICTORY, //!< Pose 11 in the database
-		ANIM_POSE_ITEM //!< Pose 12 in the database
+		ANIM_POSE_PUNCH_LEFT,  //!< Pose 3 in the database
+		ANIM_POSE_SKILL,	   //!< Pose 4 in the database
+		ANIM_POSE_DEAD,		   //!< Pose 5 in the database
+		ANIM_POSE_DAMAGE,	   //!< Pose 6 in the database
+		ANIM_POSE_DAZED,	   //!< Pose 7 in the database
+		ANIM_POSE_BLOCK,	   //!< Pose 8 in the database
+		ANIM_POSE_RUN_LEFT,	   //!< Pose 9 in the database
+		ANIM_POSE_RUN_RIGHT,   //!< Pose 10 in the database
+		ANIM_POSE_VICTORY,	   //!< Pose 11 in the database
+		ANIM_POSE_ITEM		   //!< Pose 12 in the database
 	};
 
 	/*! \brief Possible values for RPG::WeaponAnimation::movement and RPG::SkillAnimation::movement
-		
+
 		These values describe the hero's movement before attacking
 	*/
 	enum AnimationMoveBeforeAttack {
@@ -30,9 +37,9 @@ namespace RPG {
 		ANIM_MOVE_BEFORE_ACTION_JUMP_FORWARD, //!< Jump forward before attacking
 		ANIM_MOVE_BEFORE_ACTION_MOVE_TO_TARGET //!< Quickly move to target before attacking
 	};
-	
+
 	/*! \brief Possible values for RPG::Animation::scope
-		
+
 		Does the battle animation target a single opponent or all?
 	*/
 	enum AnimationScope {
@@ -42,9 +49,9 @@ namespace RPG {
 
 	//! One-byte version of RPG::AnimationScope
 	typedef unsigned char AnimationScope_T;
-	
+
 	/*! \brief Possible values for RPG::Animation::yLine
-		
+
 		Where does the vertical center of the animation lie?
 	*/
 	enum AnimationYAxisLine {
@@ -55,7 +62,7 @@ namespace RPG {
 
 	//! One-byte version of RPG::AnimationYAxisLine
 	typedef unsigned char AnimationYAxisLine_T;
-	
+
 	/*! \brief Used to define a battle animation, its frames, and effects.
 		\sa RPG::battleAnimations
 		\sa RPG::AnimationEffect
@@ -63,7 +70,7 @@ namespace RPG {
 		\sa RPG::AnimationYAxisLine
 		\sa RPG::AnimationFrame
 	*/
-	
+
 	class Animation {
 		public:
 			void **vTable;
@@ -93,5 +100,6 @@ namespace RPG {
 std::string animationName = RPG::battleAnimations[4]->filename.s_str());
 		\endcode
 	*/
-	static RPG::NamedCatalogPtr<RPG::Animation *> &battleAnimations = (**reinterpret_cast<RPG::NamedCatalogPtr<RPG::Animation *> **>(0x4CDDC4));
+	extern RPG::NamedCatalogPtr<RPG::Animation *> &battleAnimations;
 }
+#endif /* ANIMATION_H */

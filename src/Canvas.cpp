@@ -1,5 +1,8 @@
 #define DYNRPG_STATIC
-#include "DynRPG.h"
+#include "DynASM.h"
+#include "Image.h"
+#include "Canvas.h"
+#include "windef.h"
 
 namespace RPG {
 	unsigned short &Canvas::pixel(int x, int y) {

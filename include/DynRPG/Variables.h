@@ -1,3 +1,7 @@
+#ifndef VARIABLES_H
+#define VARIABLES_H
+#include "DString.h"
+#include "System.h"
 namespace RPG {
 	/*! \brief Access to variable names.
 		\sa RPG::variables::name(int)
@@ -27,20 +31,16 @@ namespace RPG {
 			//! \cond
 			int dummy;
 			//! \endcond
-			
+
 			/*! \brief Gets the name of a variable
 				\return The name of the variable
 			*/
 			DStringPtr name(int index);
 	};
-	
-	DStringPtr RPG::Variables::name(int index) {
-		RPG::NamedCatalogPtr<RPG::Variable *> &n = (**reinterpret_cast<RPG::NamedCatalogPtr<RPG::Variable *> **>(0x4CDFC4));
-		return n[index]->name;
-	}
 
 	/*! \ingroup game_objects
 		\brief %Variables array
 	*/
 	static RPG::Variables variables __attribute__((unused));
 }
+#endif /* VARIABLES_H */

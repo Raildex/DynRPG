@@ -3,3 +3,6 @@ CMakeFiles/
 CMakeCache.txt
 build/
 lib/
+build_mingw.bat
+.vscode
+.vs

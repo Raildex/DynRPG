@@ -1,3 +1,6 @@
+#ifndef ANIMATION2WEAPON_H
+#define ANIMATION2WEAPON_H
+#include "DString.h"
 namespace RPG {
 	/*! \brief Used to define a battler's weapon animations.
 		\sa RPG::battlerAnimations
@@ -15,3 +18,4 @@ namespace RPG {
 				int _unknown_18;
 	};
 }
+#endif /* ANIMATION2WEAPON_H */

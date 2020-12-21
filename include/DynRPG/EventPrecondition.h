@@ -1,3 +1,5 @@
+#ifndef EVENTPRECONDITION_H
+#define EVENTPRECONDITION_H
 namespace RPG {
 	//! Possible values for the RPG::EventPrecondition::flag member
 	enum EventPreconditionFlag {
@@ -10,10 +12,10 @@ namespace RPG {
 		EPF_TIMER1 = 32,
 		EPF_TIMER2 = 64
 	};
-	
+
 	//! One-byte version of RPG::EventPreconditionFlag
 	typedef unsigned char EventPreconditionFlag_T;
-	
+
 	//! Possible values for the RPG::EventPrecondition::varLogic member
 	enum EventPreconditionVarLogic {
 		EPVL_EQUAL,
@@ -23,7 +25,7 @@ namespace RPG {
 		EPVL_LESS,
 		EPVL_NOT_EQUAL
 	};
-	
+
 	/*! \brief The preconditions for a particular event page
 
 		\sa RPG::EventPage
@@ -45,3 +47,4 @@ namespace RPG {
 
 	};
 }
+#endif /* EVENTPRECONDITION_H */

@@ -1,6 +1,7 @@
 #define DYNRPG_STATIC
-#include "DynRPG.h"
-
+#include "DynASM.h"
+#include "Picture.h"
+#include "Image.h"
 namespace RPG {
 	void Picture::merge() {
 		if(image->pixels && image2->pixels) {
@@ -76,4 +77,5 @@ namespace RPG {
 	void Picture::draw() {
 		asm volatile("call *%%esi" : "=a" (_eax) : "S" (0x4C1E6C), "a" (this) : "edx", "ecx", "cc", "memory");
 	}
+
 }

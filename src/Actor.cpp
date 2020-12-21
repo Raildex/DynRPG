@@ -1,6 +1,7 @@
 #define DYNRPG_STATIC
-#include "DynRPG.h"
-
+#include "Actor.h"
+#include "DBActor.h"
+#include "DynASM.h"
 namespace RPG {
 	std::string Actor::getDegree() {
 		if(degree.s_str() == "\x01") return dbActors[id]->degree;
@@ -46,5 +47,56 @@ namespace RPG {
 		Actor *ret = NULL;
 		asm volatile("call *%%esi" : "=a" (ret), "=d" (_edx) : "S" (0x4A6014), "a" (**(void ***)0x4CDB74), "d" (index) : "ecx", "cc", "memory"); // GetPartyMember
 		return ret;
+	}
+
+	/*! \brief Returns the agility value if actor has two weapons equipped (one weapon is ignored)
+	\return Agility value when normally attacking with two weapons (see RPG::Actor::usedWeaponSlot)
+	*/
+
+
+	/*! \brief Built-in RM2k3 function that tests if a hero already knows a certain skill
+	\param id The database ID of the skill
+	*/
+
+
+	/*! \brief Built-in RM2k3 function that removes a skill from a hero
+	\param id The database ID of the skill
+	*/
+
+
+	/*! \brief Built-in RM2k3 function that adds a skill to a hero
+	\param id The database ID of the skill
+	*/
+
+		inline void Actor::addSkill(int skillId) {
+		asm volatile("call *%%esi"
+			:
+		: "S" (0x4B7884), "a" (this), "d" (skillId)
+			: "ecx", "cc", "memory");
+	}
+
+	inline void Actor::removeSkill(int skillId) {
+		asm volatile("call *%%esi"
+			:
+		: "S" (0x4B7928), "a" (this), "d" (skillId)
+			: "ecx", "cc", "memory");
+	}
+
+	inline bool Actor::isSkillKnown(int skillId) {
+		bool out;
+		asm volatile("call *%%esi"
+			: "=a" (out)
+			: "S" (0x4B798C), "a" (this), "d" (skillId)
+			: "ecx", "cc", "memory");
+		return out;
+	}
+
+	inline int Actor::getTwoWeaponAgility() {
+		int out;
+		asm volatile("call *%%esi"
+			: "=a" (out)
+			: "S" (0x4B760C), "a" (this)
+			: "ecx", "edx", "cc", "memory");
+		return out;
 	}
 }

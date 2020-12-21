@@ -1,3 +1,6 @@
+#ifndef ANIMATION2POSE_H
+#define ANIMATION2POSE_H
+#include "DString.h"
 namespace RPG {
 	/*! \brief Possible values for RPG::Animation2Pose::animType
 
@@ -7,7 +10,7 @@ namespace RPG {
 		PT_CHARACTER_POSE,
 		PT_BATTLE_ANIMATION
 	};
-	
+
 	//! One-byte version of RPG::PoseAnimationType
 	typedef unsigned char PoseAnimationType_T;
 
@@ -29,5 +32,6 @@ namespace RPG {
 			PoseAnimationType_T animType; //!< The pose's animation type
 			int battleAnimId; //!< the battle animation ID if animTYpe is set to RPG::PT_BATTLE_ANIMATION (See RPG::PoseAnimationType)
 	};
-	
+
 }
+#endif /* ANIMATION2POSE_H */

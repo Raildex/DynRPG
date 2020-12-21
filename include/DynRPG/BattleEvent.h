@@ -1,7 +1,9 @@
+#ifndef BATTLEEVENT_H
+#define BATTLEEVENT_H
 namespace RPG {
 	//! Stub
 	typedef void BattleEventScriptData;
-	
+
 	/*! \brief Used to access battle event parameters (NOT the scriptlines).
 
 		\sa RPG::battleEvents
@@ -32,7 +34,7 @@ namespace RPG {
 				char _unknown_2A;
 				char _unknown_2B; // unused?
 			bool eventPageDone[100]; //!< Determines whether a particular battle event page has finished executing
-			
+
 	};
 
 	/*! \ingroup game_objects
@@ -43,6 +45,7 @@ namespace RPG {
 std::string temp = RPG::battleEvents->eventPageDone[0]);
 		\endcode
 	*/
-	static RPG::BattleEvent *&battleEvents = (**reinterpret_cast<RPG::BattleEvent ***>(0x4CDB10));
+	extern RPG::BattleEvent *&battleEvents;
 }
 
+#endif /* BATTLEEVENT_H */

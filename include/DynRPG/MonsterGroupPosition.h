@@ -1,6 +1,8 @@
+#ifndef MONSTERGROUPPOSITION_H
+#define MONSTERGROUPPOSITION_H
 namespace RPG {
 	/*! \brief Used to define an individual monster's position in the group.
-	
+
 		\sa RPG::DBMonsterGroup
 		\sa RPG::dbMonsterGroups
 	*/
@@ -12,6 +14,7 @@ namespace RPG {
 			int monsterId; //!< monster's id
 			int xPos; //!< X-position of the monster
 			int yPos; //!< Y-position of the monster
-			bool isHidden; //!< Is the monster hidden (aka "Invisible" in the editor)? 
+			bool isHidden; //!< Is the monster hidden (aka "Invisible" in the editor)?
 	};
 }
+#endif /* MONSTERGROUPPOSITION_H */

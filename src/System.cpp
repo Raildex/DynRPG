@@ -1,6 +1,9 @@
 #define DYNRPG_STATIC
 #include "DynRPG.h"
-
+#include "System.h"
+#include "DynASM.h"
+#include "Music.h"
+#include "Sound.h"
 namespace RPG {
 
 #define defaultAccessorBGM(_member_, _function_) \
@@ -60,4 +63,17 @@ namespace RPG {
 		asm volatile("call *%%esi" : "=a" (rCanvas) : "S" (0x4683AC), "a" (font) : "edx", "ecx", "cc", "memory"); // GetCanvas
 		asm volatile("call *%%esi" : "=a" (_eax), "=d" (_edx) : "S" (0x4228CC), "a" (rCanvas[3]), "d" (s.str) : "ecx", "cc", "memory"); // TFont::SetName
 	}
+
+	void RPG::SystemGraphic::change(std::string systemGraphicName, bool isTiled = false, bool isMincho = false) {
+		RPG::DStringPtr *par = new DStringPtr(systemGraphicName); // *cue holy music*
+		asm volatile("push %%eax"
+			:
+		: "a" (isTiled));
+		asm volatile("call *%%esi"
+			: "=a" (RPG::_eax), "=c" (RPG::_ecx), "=d" (RPG::_edx)
+			: "S" (0x4AE280), "a" (this), "d" (isMincho), "c" (par->str)
+			: "cc", "memory");
+		delete par;
+	}
+
 }

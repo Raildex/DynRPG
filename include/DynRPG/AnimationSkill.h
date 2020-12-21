@@ -1,3 +1,6 @@
+#ifndef ANIMATIONSKILL_H
+#define ANIMATIONSKILL_H
+#include "Animation.h"
 namespace RPG {
 	/*! \brief Used to define a skill animation for a particular battler.
 		\sa RPG::AnimationBattlerPose
@@ -24,3 +27,4 @@ namespace RPG {
 				int _unknown_34;*/
 	};
 }
+#endif /* ANIMATIONSKILL_H */

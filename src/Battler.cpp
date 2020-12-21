@@ -1,6 +1,9 @@
 #define DYNRPG_STATIC
+#include "Battler.h"
+#include "DString.h"
+#include "DynASM.h"
+#include "System.h"
 #include "DynRPG.h"
-
 namespace RPG {
 	std::string Battler::getName() {
 		DStringPtr s;
@@ -80,5 +83,71 @@ namespace RPG {
 			asm volatile("call *%%esi" : "=a" (ret), "=d" (_edx) : "S" (0x45CDF4), "a" (**sceneObjects[SCENE_BATTLE]), "d" (this) : "ecx", "cc", "memory"); // ExecuteBattlerAction (DynRPG)
 		}
 		return ret;
+	}
+
+	/*! \brief Built-in RM2k3 function that returns the strength of a skill on a certain target,
+	however, it's before the miss probability based on agility and statuses is calculated.
+
+	\param skillId the id of the skill
+	\param target the target Battler of the attack
+	\return The damage value (again, not final!)
+	*/
+
+
+		/*! \brief Built-in RM2k3 function that returns the strength of an attack (not the final attack value)
+		Rough formula (a lot still not taken into account): if (critical hit) atk*3, else if (charge up) atk*2
+
+		\param target the target Battler of the attack
+		\return The damage value (again, not final!)
+		*/
+
+
+		/*! \brief Built-in RM2k3 function that returns the actual damage multiplier for
+		when the battler would be hit with a certain attribute
+		(considers the (Elemental) Resistance of equipment (max. one step towards dmgE)
+		and the "Reduce / Increase Resistance" of skill effects)
+		\param id the attribute to get the multiplier from
+		\return Damage multiplier in percent
+		*/
+
+		inline int Battler::getAttributeResist(int id) {
+		int out;
+		int tmp;
+		int tmp2;
+		asm volatile("call *%%esi"
+			: "=a" (tmp), "=d" (RPG::_edx)
+			: "S" (0x47B5D8), "a" ((*reinterpret_cast<int **> (0x4CDE44))[0]), "d" (id)
+			: "ecx", "cc", "memory");
+		asm volatile("call *%%esi"
+			: "=a" (tmp2), "=d" (RPG::_edx)
+			: "S" (0x4BFDF8), "a" (this), "d" ((reinterpret_cast<int *> (tmp))[1])
+			: "ecx", "cc", "memory");
+		asm volatile("mov %0, %%eax": : "a" (this));
+		asm volatile("push %ebp; mov %eax, %ebp; push %edx; push %eax");
+		asm volatile("call *%%esi"
+			: "=a" (out), "=d" (RPG::_edx)
+			: "S" (0x47B564), "a" (tmp), "d" (tmp2)
+			: "ecx", "cc", "memory");
+		asm volatile("pop %edx; pop %edx; pop %ebp");
+
+		return out;
+	}
+
+	inline int Battler::getAttackPower(RPG::Battler * target) {
+		int power;
+		asm volatile("call *%%esi"
+			: "=a" (power), "=d" (RPG::_edx)
+			: "S" (0x4C0B2C), "a" (this), "d" (target)
+			: "ecx", "cc", "memory");
+		return power;
+	}
+
+	inline int Battler::getSkillPower(int skillId, RPG::Battler * target) {
+		int power;
+		asm volatile("call *%%esi"
+			: "=a" (power), "=d" (RPG::_edx), "=c" (RPG::_ecx)
+			: "S" (0x4C0DBC), "a" (this), "d" (skillId), "c" (target)
+			: "cc", "memory");
+		return power;
 	}
 }

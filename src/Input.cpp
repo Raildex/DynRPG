@@ -1,8 +1,9 @@
 #define DYNRPG_STATIC
-#include "DynRPG.h"
-
+#include "Input.h"
+#include "DynASM.h"
+#include <windows.h>
 namespace RPG {
-	int *Input::key(Key keyId) {
+	int* Input::key(Key keyId) {
 		if(keyId >= KEY_0) {
 			return keys2k3 + (keyId - KEY_0) * 8;
 		} else {

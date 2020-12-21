@@ -1,6 +1,10 @@
+#ifndef MOVEROUTE_H
+#define MOVEROUTE_H
+#include "DList.h"
+#include "DArray.h"
 namespace RPG {
 	/*! \brief "Move event" command type
-		
+
 		A few of these commands take parameters, see details. For information
 		how to use these commands, see the RPG::Character::move documentation.
 		\sa RPG::Character::move
@@ -41,28 +45,28 @@ namespace RPG {
 		MT_INCREASE_FREQUENCY,
 		MT_DECREASE_FREQUENCY,
 		/*! \brief Turns a switch ON
-			
+
 			This command takes one integer parameter: The switch ID.
 			\sa RPG::MT_SWITCH_OFF
 			\sa RPG::Switches
 		*/
 		MT_SWITCH_ON,
 		/*! \brief Turns a switch OFF
-			
+
 			This command takes one integer parameter: The switch ID.
 			\sa RPG::MT_SWITCH_ON
 			\sa RPG::Switches
 		*/
 		MT_SWITCH_OFF,
 		/*! \brief Changes the charset graphic of the character
-			
+
 			This command takes two parameters:
 				<ul><li>The charset filename (string)</li>
 				<li>The charset sprite ID (integer)</li></ul>
 		*/
 		MT_CHANGE_GRAPHIC,
 		/*! \brief Plays a sound effect
-			
+
 			This command takes four parameters:
 				<ul><li>The sound filename (string)</li>
 				<li>The sound volume (integer)</li>
@@ -78,10 +82,10 @@ namespace RPG {
 		MT_INCREASE_TRANSPARENCY,
 		MT_DECREASE_TRANSPARENCY
 	};
-	
+
 	//! Not implemented yet
 	typedef void MoveRouteItem;
-	
+
 	/*! \brief Used for the move route of an character (also set by the "Move Event" command)
 		\sa RPG::MoveType
 		\sa RPG::Character::move
@@ -95,3 +99,4 @@ namespace RPG {
 			bool ignoreImpossible; //!< \c true if impossible movement commands should be skipped
 	};
 }
+#endif /* MOVEROUTE_H */

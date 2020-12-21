@@ -3,7 +3,7 @@
 	RM2k3 Plugin SDK
 	by David "Cherry" Trapp
 	http://cherrytree.at
-	
+
 	Update by Andrew King (PepsiOtaku)
 
 	Include this file in your C++ project to work with the DynRPG SDK!
@@ -36,21 +36,16 @@
 #ifndef NULL
 #define NULL 0
 #endif
-
-//! \namespace RPG The one and only namespace in which all DynRPG classes, variables and functions reside, except for callbacks.
-namespace RPG {
-	//! \cond
-	// Used for asm statements when input parameters may be written to
-	static void *_eax __attribute__((unused));
-	static void *_edx __attribute__((unused));
-	static void *_ecx __attribute__((unused));
-	//! \endcond
-
-	//! Not implemented yet
-	typedef void UnknownPointer;
-}
-
- // Note: Do not change the include order unless you know what you're doing!
+#ifndef DYNRPG_IWYU
+#include "DynASM.h"
+#include "EventScriptLine.h"
+#include "EventScriptData.h"
+#include "Picture.h"
+#include "Character.h" // Updated
+#include "Battler.h"
+#include "ParsedCommentData.h"
+#include "System.h"
+// Note: Do not change the include order unless you know what you're doing!
 #include "DArray.h"
 #include "ArrayBaseOne.h"
 #include "DList.h"
@@ -62,24 +57,18 @@ namespace RPG {
 #include "Music.h"
 #include "Sound.h"
 #include "Input.h" // Updated
-#include "Picture.h"
 #include "DBSystem.h" // Updated
-#include "System.h"
 #include "ScreenEffect.h"
 #include "Screen.h"
 #include "Variables.h"
 #include "Switches.h"
 #include "MoveRoute.h"
-#include "EventScriptLine.h"
-#include "EventScriptData.h"
+
     #include "EventPrecondition.h"
     #include "EventPage.h"
     #include "EventData.h"
-#include "Character.h" // Updated
 #include "Action.h"
-#include "Battler.h"
     #include "SkillProgression.h"
-#include "ParsedCommentData.h"
 // Bulk of source update below - PepsiOtaku
     #include "TeleportManagement.h"
     #include "Teleport.h"
@@ -136,40 +125,49 @@ namespace RPG {
     #include "SceneFile.h"
     #include "DynFunctions.h"
 
+#else
+// Forward declarations for DynRPG callbacks
+namespace RPG {
+	class Battler;
+	class Picture;
+	class Character;
+	class ParsedCommentData;
+	class EventScriptLine;
+	class EventScriptData;
+}
+#include "System.h"
 
+#endif
 
 namespace RPG {
+	class Battler;
 	//! \cond
-	static void ***sceneObjects[] __attribute__((unused)) = {
-		(void ***)0x4CDC1C, (void ***)0x4CDC60, (void ***)0x4CDD38,
-		(void ***)0x4CDE4C, (void ***)0x4CDBF4, (void ***)0x4CDFCC,
-		(void ***)0x4CDB94, (void ***)0x4CE008, (void ***)0x4CDD4C
-	};
+	extern void ***sceneObjects[] __attribute__((unused));
 	//! \endcond
 
 	//! The test play flag
 	/*! This flag may also be changed at runtime. */
-	static bool &isTestPlay = (**reinterpret_cast<bool **>(0x4CDD50));
+	extern bool &isTestPlay;
 
 	//! The test play flag
 	/*! This flag may also be changed at runtime, but it probably wouldn't make sense. */
-	static bool &isBattleTest = (**reinterpret_cast<bool **>(0x4CDCB8));
+	extern bool &isBattleTest;
 	//static bool &isBattleTest = (**reinterpret_cast<bool **>(0x4CDCB4)); // 0x4CDCB4 is what's documented by bugmenot... check both
 
 	//! Should the title screen be shown (according to the "Show Title" button in the %RPG Maker)?
 	/*! This flag may also be changed at runtime, but it probably wouldn't make sense. */
-	static bool &showTitle = (**reinterpret_cast<bool **>(0x4CDF90));
+	extern bool &showTitle;
 
 	//! Speed of the ATB system in percent
 	/*! This value can be set to zero to pause the battle.
 		\note This is a special feature of the DynRPG patch. */
-	static int &battleSpeed = (*reinterpret_cast<int *>(0x442600));
+	extern int &battleSpeed;
 
 	//! Allows transparent windows in outside of the map too
 	/*! Set this flag to \c true to allow transparent windows in the menu, on
 		the title screen, etc.
 		\note This is a special feature of the DynRPG patch. */
-	static bool &transparentWindowsEverywhere = (*reinterpret_cast<bool *>(0x442604));
+	extern bool &transparentWindowsEverywhere;
 
 	//! Possible values of the \c mode parameter of RPG::updateBattleEvents
 	/*! \warning I am not completely sure about the effects these modes have. */

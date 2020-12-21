@@ -1,3 +1,5 @@
+#ifndef PARSEDCOMMENTDATA_H
+#define PARSEDCOMMENTDATA_H
 namespace RPG {
 	/*! \brief Type of a parsed comment parameter
 		\sa RPG::ParsedCommentParameter
@@ -8,7 +10,7 @@ namespace RPG {
 		PARAM_STRING, //!< The parameter is a string
 		PARAM_TOKEN //!< The parameter is a token
 	};
-	
+
 	/*! \brief Used for parameters of parsed event comments (see \ref event_comments guidelines)
 		\sa RPG::ParsedCommentData
 	*/
@@ -18,7 +20,7 @@ namespace RPG {
 			double number; //!< Numerical value (if \c type is RPG::PARAM_NUMBER)
 			char text[200]; //!< Text value (if \c type is RPG::PARAM_STRING or RPG::PARAM_TOKEN)
 	};
-	
+
 	/*! \brief Used for parsed event comments (see \ref event_comments guidelines)
 		\sa RPG::ParsedCommentParameter
 	*/
@@ -29,3 +31,4 @@ namespace RPG {
 			ParsedCommentParameter parameters[100]; //!< Parsed parameters
 	};
 }
+#endif /* PARSEDCOMMENTDATA_H */

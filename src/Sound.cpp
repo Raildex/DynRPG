@@ -1,6 +1,7 @@
 #define DYNRPG_STATIC
-#include "DynRPG.h"
-
+#include "Sound.h"
+#include "DynASM.h"
+#include "System.h"
 namespace RPG {
 	Sound::Sound() {
 		init();

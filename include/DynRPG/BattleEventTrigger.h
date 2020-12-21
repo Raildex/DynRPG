@@ -1,5 +1,7 @@
+#ifndef BATTLEEVENTTRIGGER_H
+#define BATTLEEVENTTRIGGER_H
 namespace RPG {
-	
+
 	//! Possible values for the RPG::BattleEventTrigger::triggerFlags member
 	enum TriggerFlag {
 		TF_NONE = 0,
@@ -15,7 +17,7 @@ namespace RPG {
 
 	//! One-byte version of RPG::TriggerFlag
 	typedef unsigned char TriggerFlag_T;
-	
+
 	//! Possible values for the RPG::BattleEventTrigger::triggerFlags2k3 member
 	enum TriggerFlag2k3 {
 		TF2_HERO_TURN = 1,
@@ -24,7 +26,7 @@ namespace RPG {
 
 	//! One-byte version of RPG::TriggerFlag2k3
 	typedef unsigned char TriggerFlag2k3_T;
-	
+
 	/*! \brief Used to access event command specific to the current battle. (OMG YES)
 
 		\sa RPG::DBMonsterGroup
@@ -63,3 +65,4 @@ namespace RPG {
 
 }
 
+#endif /* BATTLEEVENTTRIGGER_H */
